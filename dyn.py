@@ -18,6 +18,8 @@ def dyn(token):
         else:
             ip = request.remote_addr
 
+        subdomain = config['TOKEN_SUBDOMAIN_MAP'][token]
+
         h = {'X-API-Key': config['PDNS_API_KEY']}
         ret = 'UPDATE FAILED'
 
@@ -65,7 +67,7 @@ def dyn(token):
         resp = 'INVALID TOKEN'
         status = 403
 
-    return Response(resp, status=status, mimetype='text/plain')
+    return Response(resp + '\n', status=status, mimetype='text/plain')
 
 
 if __name__ == "__main__":
